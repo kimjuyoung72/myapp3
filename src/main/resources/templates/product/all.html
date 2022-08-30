@@ -10,7 +10,47 @@
 <body>
   <div class="product-wrap">
     <h3>상품목록</h3>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>아이디</th>
+          <th>상품명</th>
+          <th>수량</th>
+          <th>가격</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><a href="/product/1">컴퓨터</a></td>
+          <td>10</td>
+          <td>1000000</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><a href="/product/2">컴퓨터</a></td>
+          <td>10</td>
+          <td>1000000</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><a href="/product/3">컴퓨터</a></td>
+          <td>10</td>
+          <td>1000000</td>
+        </tr>
+      </tbody>
+    </table>
     <hr>
+    <div><button id="addBtn">상품등록</button></div>
   </div>
+
+  <script>
+    addBtn.addEventListener('click', e => {
+
+      location.href = '/product';
+    });
+
+  </script>
 </body>
 </html>
