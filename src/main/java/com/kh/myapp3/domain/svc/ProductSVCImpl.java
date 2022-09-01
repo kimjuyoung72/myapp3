@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Slf4j
-@Service
+@Service    //SVC
 @RequiredArgsConstructor    //생성자 주입
 public class ProductSVCImpl implements ProductSVC{
 

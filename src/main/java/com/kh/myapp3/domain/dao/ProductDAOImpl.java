@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository   //DAO
 @RequiredArgsConstructor //final필드를 생성자의 매개변수로 해서 생성자를 만들어줌.
 public class ProductDAOImpl implements ProductDAO{
 
@@ -59,12 +59,14 @@ public class ProductDAOImpl implements ProductDAO{
     StringBuffer sql = new StringBuffer();
     sql.append("insert into product values(product_product_id_seq.nextval,?,?,?)");
 
-    KeyHolder keyHolder = new GeneratedKeyHolder();
-    jt.update(new PreparedStatementCreator(){
+    KeyHolder keyHolder = new GeneratedKeyHolder(); //저장한 데이터를 바로 꺼내기위한 변수
+    jt.update(new PreparedStatementCreator(){ //?에 치환할 값을 할당. keyholder를 사용하기 위해
+                                              //PreparedStatementCreate psc, KeyHolder keyholder가
+                                              //매개 변수인 update()를 사용.
       @Override
       public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement(sql.toString(),new String[]{"product_id"});
-        pstmt.setString(1,product.getPname());
+        pstmt.setString(1,product.getPname());  //?의 index를 맞춰야됨.
         pstmt.setInt(2,product.getQuantity());
         pstmt.setInt(3,product.getPrice());
         return pstmt;
@@ -76,6 +78,23 @@ public class ProductDAOImpl implements ProductDAO{
     return product;
   }
 
+  //조회
+
+  @Override
+  public Product findById(Long productId) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("select product_id, pname, quantity, price ");
+    sql.append("from product ");
+    sql.append("where product_id = ? ");
+    Product product = null; //개별조회 queryForObject()
+    try {
+      //단일 레코드 => queryForObject(). BeanPropertyRowMapper<>()는 대응하는 것에 자동매핑 한다. productId는 찾는 대상.
+      product = jt.queryForObject(sql.toString(), new BeanPropertyRowMapper<>(Product.class), productId);
+    } catch (EmptyResultDataAccessException e) {  //대응되는게 없다면 예외 발생
+      log.info("삭제대상 상품이 없습니다. 상품아이디={}", productId);
+    }
+    return product;
+  }
   //수정
   @Override
   public void update(Long productId, Product product) {
@@ -93,22 +112,6 @@ public class ProductDAOImpl implements ProductDAO{
 
   }
 
-  //조회
-  @Override
-  public Product findById(Long productId) {
-    StringBuffer sql = new StringBuffer();
-    sql.append("select product_id, pname, quantity, price ");
-    sql.append("from product ");
-    sql.append("where product_id = ? ");
-    Product product = null; //개별조회 queryForObject()
-    try {
-      product = jt.queryForObject(sql.toString(), new BeanPropertyRowMapper<>(Product.class), productId);
-    } catch (EmptyResultDataAccessException e) {
-      log.info("삭제대상 상품이 없습니다. 상품아이디={}", productId);
-    }
-    return product;
-  }
-
 
   @Override
   public void delete(Long productId) {
@@ -124,10 +127,11 @@ public class ProductDAOImpl implements ProductDAO{
     sql.append("  from product ");
 
     //case1) sql 결과 레코드와 동일한 구조의 java객체가 존재할 경우
+    //여러 컬럼이 있을 경우 query() 사용. 이 경우 리턴은 컬렉션이 되야 한다.
     List<Product> result =
         jt.query(sql.toString(), new BeanPropertyRowMapper<>(Product.class)); //여러 건 조회. rowMap에 자동 매핑
 
-    //case2) sql 결과 레코드의 컬럼명과 java 객체의 멤버이름이 다른 경우 or 타이비 다른 경우 수동매핑
+    //case2) sql 결과 레코드의 컬럼명과 java 객체의 멤버이름이 다른 경우 or 타입이 다른 경우 수동매핑
 //      jt.query(sql.toString(), new RowMapper<Product>() {
 //
 //        @Override
@@ -175,7 +179,7 @@ public class ProductDAOImpl implements ProductDAO{
   public Long generatePid() {
     String sql = "select product_product_id_seq.nextval from dual"; //현재
 //    String sql = "select product_product_id_seq.currtval from dual";  //가장최근
-    Long seq = jt.queryForObject(sql, Long.class);
+    Long seq = jt.queryForObject(sql, Long.class);  //단일 레코드, 컬럼
     return seq;
   }
 }

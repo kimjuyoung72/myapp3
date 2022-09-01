@@ -13,25 +13,26 @@
   <!-- 폼태그의 메소드는 요청 메소드, 액션은 경로(디폴트는 현재 요청URL) -->
   <form method="POST" action="">
     <div>
-      <div><label for="">상품ID</label><input type="text" readonly></div>
-      <div><label for="">상품명</label><input type="text"></div>
-      <div><label for="">수량</label><input type="text"></div>
-      <div><label for="">가격</label><input type="text"></div>
+      <div><label for="">상품ID</label><input type="text" readonly name="productId" th:value="${editForm.productId}"></div>
+      <div><label for="">상품명</label><input type="text" name="pname" th:value="${editForm.pname}"></div>
+      <div><label for="">수량</label><input type="text" name="quantity" th:value="${editForm.quantity}"></div>
+      <div><label for="">가격</label><input type="text" name="price" th:value="${editForm.price}"></div>
       <!-- <div><label for="">상세설명</label></div>
       <textarea name="" id="" cols="30" rows="10"></textarea> -->
       <!-- 폼태그 내에서 버튼은 디폴트가 서밋, 바깥에서는 버튼 -->
-      <div><button id="cancelBtn">저장</button></div>
-      <div><button id="editBtn">취소</button></div>
+      <div><button id="cancelBtn" type="button">취소</button></div>
+      <div><button id="editBtn">저장</button></div>
 
     </div>
   </form>
 </div>
 <script>
-  editBtn.addEventListener('click', e => {
-    location.href = ''
+  //취소시 상세화면으로 이동
+  cancelBtn.addEventListener('click', e => {
+    const productId = document.querySelector('input[name=productId]').value;
+    const url = `/products/${productId}`;
+    location.href = url;
   });
-  delBtn.addEventListener('click', e => {});
-  listBtn.addEventListener('click', e => {});
 </script>
 </body>
 </html>

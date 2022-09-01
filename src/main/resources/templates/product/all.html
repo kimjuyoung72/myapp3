@@ -10,7 +10,6 @@
 <body>
   <div class="product-wrap">
     <h3>상품목록</h3>
-    
     <table>
       <thead>
         <tr>
@@ -21,23 +20,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td><a href="/product/1">컴퓨터</a></td>
-          <td>10</td>
-          <td>1000000</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td><a href="/product/2">컴퓨터</a></td>
-          <td>10</td>
-          <td>1000000</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td><a href="/product/3">컴퓨터</a></td>
-          <td>10</td>
-          <td>1000000</td>
+        <!-- th:each 반복문 참고. -->
+        <tr th:each="product : ${list}">
+          <td th:text="${product.productId}">1</td>
+          <!-- 경로는 @{ {변수}(변수=${할당값})} -->
+
+          <td><a href="/product/1" th:href="@{/products/{pid}(pid=${product.productId})}" th:text="${product.pname}">컴퓨터</a></td>
+          <td th:text="${product.quantity}">10</td>
+          <td th:text="${product.price}">1000000</td>
         </tr>
       </tbody>
     </table>
@@ -48,7 +38,7 @@
   <script>
     addBtn.addEventListener('click', e => {
 
-      location.href = '/product/add';
+      location.href = '/products/add';
     });
 
   </script>
