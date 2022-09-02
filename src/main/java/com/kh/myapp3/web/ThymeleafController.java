@@ -52,4 +52,24 @@ public class ThymeleafController {
     private String name;
     private int age;
   }
+
+  @GetMapping("/each")
+  public String each(Model model) {
+
+    List<Person> personList = new ArrayList<>();
+    personList.add(new Person("홍길동1", 10));
+    personList.add(new Person("홍길동2", 20));
+    personList.add(new Person("홍길동3", 30));
+
+    model.addAttribute("personList", personList);
+    return "thyme/each";
+  }
+
+  @GetMapping("/iter")
+  public String iter() {
+
+    //일반 for문
+
+    return "thyme/iter";
+  }
 }
