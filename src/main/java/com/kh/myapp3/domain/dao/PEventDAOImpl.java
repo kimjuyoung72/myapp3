@@ -11,7 +11,7 @@ public class PEventDAOImpl implements PEventDAO{
     }
 
     @Override
-    public void update(Long productId, PEvent pEvent) {
+    public void update(Long mt20id, PEvent pEvent) {
 
     }
 
