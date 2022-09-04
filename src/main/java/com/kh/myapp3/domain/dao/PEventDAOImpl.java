@@ -11,17 +11,17 @@ public class PEventDAOImpl implements PEventDAO{
     }
 
     @Override
-    public void update(Long mt20id, PEvent pEvent) {
+    public void update(String mt20id, PEvent pEvent) {
 
     }
 
     @Override
-    public PEvent findById(Long mt20id) {
+    public PEvent findById(String mt20id) {
         return null;
     }
 
     @Override
-    public void delete(Long mt20id) {
+    public void delete(String mt20id) {
 
     }
 

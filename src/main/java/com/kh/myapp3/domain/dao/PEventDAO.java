@@ -18,20 +18,20 @@ public interface PEventDAO {
      * 수정
      * @param pEvent 수정할 공연정보
      */
-    void update(Long productId, PEvent pEvent);
+    void update(String mt20id, PEvent pEvent);
 
     /**
      * 조회
      * @param mt20id 공연 정보 아이디
      * @return 공연상세
      */
-    PEvent findById(Long mt20id);
+    PEvent findById(String mt20id);
 
     /**
      * 삭제
      * @param mt20id 공연 정보 아이디
      */
-    void delete(Long mt20id);
+    void delete(String mt20id);
 
     /**
      * 목록
