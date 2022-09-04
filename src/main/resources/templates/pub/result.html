@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pub result</title>
+</head>
+
+<body>
+    <table>
+        <caption>공공데이터 목록</caption>
+        <thead>
+        <tr>
+            <th>항목1</th>
+            <th>항목1</th>
+            <th>항목1</th>
+        </tr>
+        </thead>
+        <tbody id="list">
+<!--        <tr>-->
+<!--            <td>값1</td>-->
+<!--            <td>값1</td>-->
+<!--            <td>값1</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>값2</td>-->
+<!--            <td>값2</td>-->
+<!--            <td>값2</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>값3</td>-->
+<!--            <td>값3</td>-->
+<!--            <td>값3</td>-->
+<!--        </tr>-->
+        </tbody>
+    </table>
+
+    <script>
+    const xhr = new XMLHttpRequest();
+    const method = 'GET';
+    const url = 'http://localhost:9080/api/pub/json';
+    // const url = 'http://localhost:9080/api/pub/xml';
+    xhr.open(method, url);  //request 요청 초기화
+    // xhr.send(null);             //request 요청 전송
+    xhr.send();             //request 요청 전송
+
+
+    document.getElementById('list').textContent = '가져오기중...';
+
+    const async_h = (e)=> {
+      if(xhr.readyState === XMLHttpRequest.DONE){
+        const status = xhr.status;
+        // console.log(xhr.status);
+        if(status === 0 || (status >= 200 && status < 400)){
+          // 요청 성공
+          // console.log(xhr);
+          console.log('resposeText', xhr.responseText);
+
+          // JSON.Object.json = XML.toJSONObject(xhr.responseText);
+
+          // xml => json 문자열 => js 객체
+
+          jsObj = JSON.parse(xhr?.responseText);
+          console.log(jsObj);
+
+          // if(jsObj.header.resultCode == '00'){
+
+            const getListItem = item => {
+                return `<tr><td>${item.prfnm}</td><td>${item.prfpdfrom}</td><td>${item.prfpdto}</td></tr>`;
+            };
+
+            // const html = Array.from(xhr.responseText)
+            //         .map((ele)=>{
+            //           `<tr><td>${ele.prfnm}</td><td>${ele.prfpdfrom}</td><td>${ele.prfpdto}</td></tr>`
+            // }).join('');
+            const html = jsObj
+                .map(item => getListItem(item))
+                .join('');
+
+
+            document.getElementById('list').innerHTML = html;
+        //   }
+        //   else {
+        //     console.log('resultCode is not 00 ');
+        //   }
+        }
+        else {
+          // 요청 실패
+          console.log('실패');
+        }
+      }
+    };
+  xhr.addEventListener('readystatechange', async_h);
+  // xhr.addEventListener('load', async_h);
+  </script>
+</body>
+</html>
