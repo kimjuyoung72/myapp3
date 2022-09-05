@@ -1,4 +1,4 @@
-package com.kh.myapp3.web.form;
+package com.kh.myapp3.web.form.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

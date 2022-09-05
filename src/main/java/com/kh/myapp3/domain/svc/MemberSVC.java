@@ -18,7 +18,7 @@ public interface MemberSVC {
    * @param memberId 회원아이디
    * @param member  수정할 정보
    */
-  void update(Long memberId, Member member);
+  int update(Long memberId, Member member);
 
   /**
    * 조회
@@ -31,7 +31,7 @@ public interface MemberSVC {
    * 탈퇴
    * @param memberId 회원아이디
    */
-  int del(Long memberId);
+  int del(Long memberId, String pw);
 
   /**
    * 목록

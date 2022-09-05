@@ -36,10 +36,12 @@ public class MemberSVCImpl implements MemberSVC{
    * @param member   수정할 정보
    */
   @Override
-  public void update(Long memberId, Member member) {
+  public int update(Long memberId, Member member) {
 
     int cnt = memberDAO.update(memberId, member);
     log.info("수정건수={},", cnt);
+
+    return cnt;
   }
 
   /**
@@ -59,8 +61,8 @@ public class MemberSVCImpl implements MemberSVC{
    * @param memberId 회원아이디
    */
   @Override
-  public int del(Long memberId) {
-    return memberDAO.del(memberId);
+  public int del(Long memberId, String pw) {
+    return memberDAO.del(memberId, pw);
   }
 
   /**

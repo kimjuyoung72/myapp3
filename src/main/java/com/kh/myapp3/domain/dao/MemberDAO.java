@@ -30,8 +30,9 @@ public interface MemberDAO {
   /**
    * 탈퇴
    * @param memberId 회원아이디
+   * @param pw 비밀번호
    */
-  int del(Long memberId);
+  int del(Long memberId, String pw);
 
   /**
    * 목록

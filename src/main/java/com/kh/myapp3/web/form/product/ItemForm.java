@@ -1,4 +1,4 @@
-package com.kh.myapp3.web.form;
+package com.kh.myapp3.web.form.product;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class EditForm {
+public class ItemForm {
   private Long productId;       //상품아이디
   private String pname;         //상품명 PNAME	VARCHAR2(30 BYTE)	Yes		2
   private Integer quantity;     //수량  QUANTITY	NUMBER(10,0)	Yes		3

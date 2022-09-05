@@ -65,8 +65,9 @@ public class MemberDAOImpl implements MemberDAO{
     sql.append("        nickname = ?, ");
     sql.append("        udate = systimestamp ");
     sql.append("  where member_id = ? ");
+    sql.append("    and pw = ? ");
 
-    result = jt.update(sql.toString(), member.getPw(), member.getNickname(), memberId);
+    result = jt.update(sql.toString(), member.getNickname(), memberId, member.getPw());
 
     return result;
   }
@@ -102,12 +103,12 @@ public class MemberDAOImpl implements MemberDAO{
    * @param memberId 회원아이디
    */
   @Override
-  public int del(Long memberId) {
+  public int del(Long memberId, String pw) {
     int result = 0;
 
-    String sql = "delete from member where member_id = ? ";
+    String sql = "delete from member where member_id = ? and pw = ? ";
 
-    result = jt.update(sql.toString(), memberId);
+    result = jt.update(sql.toString(), memberId, pw);
     return result;
   }
 
