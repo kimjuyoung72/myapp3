@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원목록</title>
+  <style>
+    table {
+      border: 1px solid grey;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid;
+    }
+  </style>
+</head>
+<body>
+<h3>회원목록</h3>
+<hr>
+  <table>
+    <colgroup>
+      <col><col><col><col><col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>순번</th>
+        <th>아이디</th>
+        <th>이메일</th>
+        <th>가입일</th>
+        <th>수정일</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rec :${list}" th:data-member-id="${rec.memberId}" onclick="location.href ='@{/admin/members/${rec.memberId}}'">
+      <td>[[${recStat.count}]]</td>
+      <!-- <td><a th:href="@{|/admin/members/{id}(id=${rec.memberId})|}">[[${rec.memberId}]]</a></td> -->
+      <td><a th:href="@{|/admin/members/${rec.memberId}|}">[[${rec.memberId}]]</a></td>
+      <td>[[${rec.email}]]</td>
+      <td>[[${#temporals.format(rec.cdate,'yy-MM-dd HH:mm')}]]</td>
+      <td>[[${#temporals.format(rec.udate,'yy-MM-dd HH:mm')}]]</td>
+    </tr>
+    </tbody>
+  </table>
+  <div>
+    <button type="button" th:onclick="|location.href='@{/admin/members/add}'|" id="addBtn">등록</button>
+  </div>
+  <script th:inline="javascript">
+    //등록
+    addBtn.addEventListener('click', e => {
+      console.log('동록');
+      location.href = `/admin/members/add`;
+    });
+    const $tbody = document.querySelector("table tbody");
+    $tbody.addEventListener('click', e => {
+
+      console.log(e.target);
+      if(e.target.tagName == 'TR') {
+        console.log(e.target.parentElement.dataset.memberId);
+        location.href = `/admin/members/${memberId}`;
+      }
+
+    });
+
+  </script>
+</body>
+</html>

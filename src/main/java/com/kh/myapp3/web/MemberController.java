@@ -70,7 +70,7 @@ public class MemberController {
     }
   }
   //탈퇴화면 get /members/out outForm
-  @GetMapping("/members/out")
+  @GetMapping("/members/del")
   public String delForm() {
 
     return "member/delForm";
@@ -86,9 +86,6 @@ public class MemberController {
     return "redirect:/";  //집으로...
   }
   //목록화면 get /members <- admin
-  @GetMapping("/all")
-  public String all() {
 
-    return "member/all";
-  }
+
 }

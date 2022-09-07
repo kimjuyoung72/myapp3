@@ -5,9 +5,37 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원상세</title>
+  <title>회원조회</title>
 </head>
-<body>
-  회원상세
+<hr>
+  <h3>회원가입</h3>
+  <hr></hr>
+  <!-- form 태그 메소드 기본값은 'GET' -->
+  <form action="" method="post">
+    <div><label for="">이메일</label><input type="email" readonly></div>
+    <div><label for="">별칭</label><input type="text" readonly></div>
+    <div>
+      <!-- form 태그 내에서의 버튼은 기본 'submit' -->
+      <button type="button" id="updateBtn">수정</button>
+      <button type="button" id="delBtn">삭제</button>
+      <button type="button" id="listBtn">목록</button>
+
+    </div>
+  </form>
+  <script>
+
+    updateBtn.addEventListener('click', e => {
+      console.log('수정');
+<!--      // location.href = '/members/{id}/edit';-->
+    });
+    delBtn.addEventListener('click', e => {
+      console.log('삭제');
+<!--      // location.href = '/members/{id}/del';-->
+    });
+    listBtn.addEventListener('click', e => {
+      console.log('삭제');
+      location.href = 'admin/members';
+    });
+  </script>
 </body>
 </html>

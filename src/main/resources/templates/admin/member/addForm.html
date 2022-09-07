@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원등록</title>
+</head>
+<body>
+  <h3>회원등록</h3>
+  <hr>
+  <!-- form 태그 메소드 기본값은 'GET' -->
+  <form action="" method="post" th:object="${addForm}">
+<!--    input 요소의 name 속성이 있어야 값이 전달된다-->
+<!--    field의 *{member}는 th:objec 객체의 멤버다. controller의 @ModelAttribute로 부터 받는다.-->
+<!--    타입이 password인 경우를 제외하고 넘겨받은 값을 유지한다-->
+    <div><label for="">이메일</label><input type="email" th:name="email" th:field="*{email}"></div>
+    <div><label for="">비밀번호</label><input type="password" th:name="pw" th:field="*{pw}"></div>
+    <div><label for="">별칭</label><input type="text" th:name="nickname" th:field="*{nickname}"></div>
+    <div>
+      <!-- form 태그 내에서의 버튼은 기본 'submit' -->
+      <button type="submit" id="addBtn">등록</button>
+    <button type="reset" id="reset">취소</button>
+    <button type="button" th:onclick="|location.href='@{/admin/members/all}'|" id="addBtn">목록</button>
+    </div>
+  </form>
+</body>
+</html>
