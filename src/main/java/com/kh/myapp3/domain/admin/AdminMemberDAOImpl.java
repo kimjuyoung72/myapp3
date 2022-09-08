@@ -113,6 +113,22 @@ public class AdminMemberDAOImpl implements AdminMemberDAO{
   }
 
   /**
+   * 이메일 중복체크
+   *
+   * @param email 이메일
+   * @return 존재하면 true
+   */
+  @Override
+  public Boolean dupChkOfMemberEmail(String email) {
+
+    String sql = "select count(email) from member where email = ? ";
+
+    Integer rowCount = jt.queryForObject(sql, Integer.class, email);
+
+    return rowCount == 1 ? true : false;
+  }
+
+  /**
    * 신규 회원아이디(내부관리용) 생성
    *
    * @return 회원아이디
